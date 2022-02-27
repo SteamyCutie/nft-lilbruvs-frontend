@@ -5,9 +5,9 @@ import { styled } from '@mui/system'
 import IconButton from '@mui/material/IconButton'
 import BubbleChartTwoToneIcon from '@mui/icons-material/BubbleChartTwoTone'
 import MuiNextLink from './MuiNextLink'
-import Navbar from './Navbar'
+// import Navbar from './Navbar'
 import SideDrawer from './SideDrawer'
-import HideOnScroll from './HideOnScroll'
+// import HideOnScroll from './HideOnScroll'
 import Fab from '@mui/material/Fab'
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import BackToTop from './BackToTop'
@@ -51,7 +51,32 @@ const Header = () => {
               </MuiNextLink>
             </IconButton>
             <Stack direction="row" alignItems="center">
-              <Navbar navLinks={navLinks} />
+              <Toolbar
+                component="nav"
+                sx={{
+                  display: { xs: `none`, md: `flex` },
+                }}
+              >
+                <Stack direction="row" spacing={4}>
+                  {navLinks.map(({ title, path }, i) => (
+                    <MuiNextLink
+                      key={`${title}${i}`}
+                      href={path}
+                      variant="button"
+                      sx={{
+                        fontSize: '20px',
+                        opacity: 0.7,
+                        color: 'primary.dark',
+                        textDecoration: 'none',
+                        textTransform: 'none',
+                      }}
+                    >
+                      {title}
+                    </MuiNextLink>
+                  ))}
+                </Stack>
+              </Toolbar>
+              {/* <Navbar navLinks={navLinks} /> */}
               <SideDrawer navLinks={navLinks} />
               <Connect />
             </Stack>
