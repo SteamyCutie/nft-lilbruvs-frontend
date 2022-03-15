@@ -51,63 +51,102 @@ export default function Connect() {
   }
 
   return (
-    <Box sx={{textAlign: 'center'}}>
-    {!active ? (
-      <CustomButton variant="contained"
-        disableElevation
-        onClick={handleConnect}
+    <Box sx={{ textAlign: 'center' }}>
+      {!active ? (
+        <CustomButton variant="contained"
+          disableElevation
+          onClick={handleConnect}
+          sx={[{
+            fontFamily: 'Chubby Choo',
+            fontWeight: 'bold',
+            fontSize: '20px',
+            color: 'black',
+            height: '52px',
+            alignItems: 'center',
+            paddingBottom: '1rem',
+            paddingLeft: '2rem',
+            paddingRight: '2rem',
+            borderRadius: 999,
+            backgroundColor: 'white',
+            border: '5px solid black',
+          },
+          {
+            '&:hover': {
+              boxShadow: 5,
+              backgroundColor: '#FAFAFA',
+            }
+          }]}
         >
           Connect Wallet
         </CustomButton>
-        ) :
-    <div>
-      <Connected
-        variant="contained"
-        onClick={handleMenuClick}
-        disableElevation
-        endIcon={<KeyboardArrowDownIcon />}
-      >
-        {account && (abridgeAddress(account))}
-      </Connected>
-      <CustomMenu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleMenuClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <MenuItem
-          variant="contained"
-          onClick={goToWallet}
-          divider
-        >
-          Your wallet
-        </MenuItem>
-        <MenuItem
-          variant="contained"
-          onClick={handleDisconnect}
-        >
-          Disconnect
-        </MenuItem>
-      </CustomMenu>
-    </div>
-    }
-    <ConnectModal
-      isModalVisible={isModalVisible}
-      handleLoginClick={handleLoginClick}
-      handleClose={handleClose}
-    />
-    {active && chainId !== 4 && <p>Please connect to Rinkeby for this demo. </p>}
+      ) :
+        <div>
+          <Connected
+            variant="contained"
+            onClick={handleMenuClick}
+            disableElevation
+            endIcon={<KeyboardArrowDownIcon />}
+            sx={[{
+              fontFamily: 'Chubby Choo',
+              fontWeight: 'bold',
+              fontSize: '20px',
+              lineHeight: '28px',
+              color: 'black',
+              height: '52px',
+              alignItems: 'center',
+              paddingLeft: '1.3rem',
+              borderRadius: 999,
+              backgroundColor: 'white',
+              border: '5px solid black',
+            },
+            {
+              '&:hover': {
+                boxShadow: 5,
+                backgroundColor: '#FAFAFA',
+              }
+            }]}
+          >
+            <div style={{ transform: 'translateY(-4px)' }}>{account && (abridgeAddress(account))}</div>
+          </Connected>
+          <CustomMenu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleMenuClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <MenuItem
+              variant="contained"
+              onClick={goToWallet}
+              divider
+            >
+              Your wallet
+            </MenuItem>
+            <MenuItem
+              variant="contained"
+              onClick={handleDisconnect}
+            >
+              Disconnect
+            </MenuItem>
+          </CustomMenu>
+        </div>
+      }
+      <ConnectModal
+        isModalVisible={isModalVisible}
+        handleLoginClick={handleLoginClick}
+        handleClose={handleClose}
+      />
+      {active && chainId !== 4 && <p>Please connect to Rinkeby for this demo. </p>}
     </ Box>
   )
 }

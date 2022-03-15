@@ -2,13 +2,12 @@ import AppBar from '@mui/material/AppBar'
 import Container from '@mui/material/Container'
 import Toolbar from '@mui/material/Toolbar'
 import { styled } from '@mui/system'
-import IconButton from '@mui/material/IconButton'
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import MuiNextLink from './MuiNextLink'
 import Image from 'next/image'
 import Navbar from './Navbar'
 import SideDrawer from './SideDrawer'
-import HideOnScroll from './HideOnScroll'
+// import HideOnScroll from './HideOnScroll'
 import Fab from '@mui/material/Fab'
 import BackToTop from './BackToTop'
 import Connect from '../web3/connect'
@@ -47,8 +46,8 @@ const Header = () => {
             <Stack direction="row" alignItems="center">
               <Navbar navLinks={navLinks} />
               <SideDrawer navLinks={navLinks} />
-              <Connect />
             </Stack>
+            <Connect />
           </Container>
         </Toolbar>
       </AppBar>

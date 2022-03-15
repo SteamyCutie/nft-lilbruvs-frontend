@@ -1,14 +1,14 @@
 import Head from 'next/head'
+import { CacheProvider } from '@emotion/react'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider } from '@emotion/react'
 import Header from '../components/core/Header'
 import createEmotionCache from '../styles/createEmotionCache'
-import '../styles/globals.css'
-import theme from '../styles/theme'
 import Footer from '../components/core/Footer'
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider } from '@web3-react/core'
+import theme from '../styles/theme'
+import '../styles/globals.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
