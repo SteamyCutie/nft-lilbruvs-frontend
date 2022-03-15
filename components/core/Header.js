@@ -1,7 +1,8 @@
 import AppBar from '@mui/material/AppBar'
 import Container from '@mui/material/Container'
-import Toolbar from '@mui/material/Toolbar'
+import { Stack, Toolbar } from '@mui/material'
 import { styled } from '@mui/system'
+import ButtonBase from '@mui/material/ButtonBase';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import MuiNextLink from './MuiNextLink'
 import Image from 'next/image'
@@ -11,9 +12,15 @@ import SideDrawer from './SideDrawer'
 import Fab from '@mui/material/Fab'
 import BackToTop from './BackToTop'
 import Connect from '../web3/connect'
-import { Stack } from '@mui/material'
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar)
+
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  positive: 'relative',
+  width: '88px',
+  height: '58px',
+  borderRadius: '24px',
+}))
 
 export const navLinks = [
   { title: 'Mint', path: '/' },
@@ -47,7 +54,18 @@ const Header = () => {
               <Navbar navLinks={navLinks} />
               <SideDrawer navLinks={navLinks} />
             </Stack>
-            <Connect />
+            <Stack direction="row" alignItems="center" sx={{ display: 'flex', gap: '50px' }}>
+              <Stack direction="row" alignItems="center" sx={{ display: 'flex', gap: '14px' }}>
+                <ImageButton sx={{
+                  backgroundColor: "#55ACEE",
+                }}>
+                  <Image src="/icons/twitter-icon.svg" width={"23px"} height={"19px"} /></ImageButton>
+                <ImageButton sx={{
+                  backgroundColor: "#6F83CB",
+                }}><Image src="/icons/discord-icon.svg" width={"23px"} height={"20.7px"} sx={{ marginLeft: '10px' }} /></ImageButton>
+              </Stack>
+              <Connect />
+            </Stack>
           </Container>
         </Toolbar>
       </AppBar>
