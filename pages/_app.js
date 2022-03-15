@@ -30,8 +30,6 @@ export default function MyApp(props) {
       </Head>
       <ThemeProvider theme={theme}>
         <Web3ReactProvider getLibrary={getLibrary}>
-          CssBaseline kickstart an elegant, consistent, and simple baseline to
-          build upon.
           <CssBaseline />
           <Header />
           <Component {...pageProps} />

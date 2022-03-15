@@ -1,60 +1,64 @@
 import {
   Button,
+  ButtonBase,
   Card,
   CardActions,
   CardContent,
   Tooltip,
   Input,
+  Stack,
   Typography,
   Zoom,
 } from '@mui/material'
-import Image from 'next/image'
+import { styled } from '@mui/system'
+import { Image } from 'next/image'
+import { useState } from 'react'
+
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  positive: 'relative',
+  width: '30px',
+  height: '30px',
+  borderRadius: '999px',
+}))
 
 const MintNFTCard = ({
-  title,
-  description,
   action,
   canMint,
   showNumToMint,
   setNumToMint,
-  mintStatus,
 }) => {
+  const [minActive, setMinActive] = useState(false);
+  const [plusActive, setPlusActive] = useState(true);
   const handleChange = (event) => {
     const numToMint = parseInt(event.target.value)
     setNumToMint(numToMint)
   }
 
   return (
-    <Card sx={{ maxWidth: 525 }}>
+    <Card sx={{ maxWidth: 560, boxShadow: 0 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {title}
+        <Typography sx={{ fontSize: "45px", fontFamily: "Chubby Choo", fontWeight: "bold", color: "text.primary", textTransform: 'capitalize' }} gutterBottom>
+          Mint for Whitelist only
         </Typography>
-        <Image
-          alt="Lil Bruvs NFT"
-          src={title === 'Whitelist Mint' ? '/whitelist-nft.png' : '/promo.gif'}
-          width={500}
-          height={500}
-        />
-        {mintStatus ? (
-          <p>Success! Check your wallet in a few minutes.</p>
-        ) : (
-          <p>{description}</p>
-        )}
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ justifyContent: 'center' }}>
         {showNumToMint && (
-          <Input
-            onChange={handleChange}
-            defaultValue={1}
-            type="number"
-            label="number to mint"
-            sx={{ mx: 3 }}
-          />
+          <Stack direction="row" sx={{ gap: "2px" }}>
+            <ImageButton>
+              {/* <Image src="/patterns/minus-grey.svg" width={"30px"} height={"30px"} alt="minus" /> */}
+            </ImageButton>
+            <Input
+              onChange={handleChange}
+              defaultValue={1}
+              type="number"
+              label="number to mint"
+              sx={{ mx: 3 }}
+            />
+            <ImageButton>+</ImageButton>
+          </Stack>
         )}
         <Tooltip
           TransitionComponent={Zoom}
-          TransitionProps={{ timeout: 300 }}
           disabled={!canMint}
           title={
             canMint
@@ -75,7 +79,7 @@ const MintNFTCard = ({
           </span>
         </Tooltip>
       </CardActions>
-    </Card>
+    </Card >
   )
 }
 

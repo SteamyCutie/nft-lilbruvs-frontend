@@ -8,18 +8,6 @@ export default function Home() {
   return (
     <Container>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="">Lil Bruvs NFT</a>
-        </h1>
-
-        <div className={styles.description}>
-          <Stack spacing={1}>
-            <span>
-              Get started by clicking on <Button variant="contained">Mint</Button> button below 👇
-            </span>
-          </Stack>
-        </div>
-        
         <MintNFT />
       </main>
     </Container>

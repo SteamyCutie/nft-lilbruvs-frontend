@@ -1,15 +1,19 @@
-import { Grid, Stack } from '@mui/material'
+import { Button, ButtonBase, Card, CardActions, CardContent, Input, Grid, Stack, Tooltip, Typography, Zoom } from '@mui/material'
+import { styled } from '@mui/system'
 import { useWeb3React } from '@web3-react/core'
 import { useEffect, useState } from 'react'
 import Notiflix from 'notiflix'
 import { Notify } from 'notiflix/build/notiflix-notify-aio'
 import { mintPublic, lilBruvsNFT } from '../../pages/utils/_web3'
-import MintNFTCard from './mint-nft-card'
+import Image from 'next/image'
 import Web3 from 'web3'
 
-const NOT_CLAIMABLE = 0
-const ALREADY_CLAIMED = 1
-const CLAIMABLE = 2
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  positive: 'relative',
+  minWidth: '30px',
+  minHeight: '30px',
+  borderRadius: '999px',
+}))
 
 const MintNFT = () => {
   const web3 = new Web3(Web3.givenProvider)
@@ -19,7 +23,11 @@ const MintNFT = () => {
 
   const [publicMintStatus, setPublicMintStatus] = useState()
   const [isPaused, setIsPaused] = useState(false)
+  const [minted, setMinted] = useState(0)
   const [numToMint, setNumToMint] = useState(1)
+
+  const [minActive, setMinActive] = useState(false);
+  const [plusActive, setPlusActive] = useState(true);
 
   useEffect(() => {
     if (!active || !account) {
@@ -37,10 +45,13 @@ const MintNFT = () => {
           setIsPaused(false)
         })
     }
-
     getMintPaused()
   }, [account])
 
+  useEffect(() => {
+    setMinActive(numToMint > 1)
+    setPlusActive(numToMint < 300)
+  }, [numToMint]);
   const showNotify = (success, status) => {
     let param = {
       width: '500px',
@@ -62,21 +73,58 @@ const MintNFT = () => {
 
   return (
     <>
-      <Stack id="demo">
-        <h2>Mint an NFT</h2>
-        <Grid container spacing={3} justifyContent="center" alignItems="center">
+      <Stack id="mint" sx={{ mt: 2 }}>
+        <Grid container spacing={5} justifyContent="center" alignItems="center" gridTemplateColumns='repeat(2, 1fr)'>
           <Grid item>
-            <MintNFTCard
-              title={'Public Mint'}
-              description={
-                'Mint this sample NFT to the connected wallet. Open for any wallet to mint. Cost: 0.00 ETH'
-              }
-              canMint={active & !isPaused}
-              mintStatus={publicMintStatus}
-              showNumToMint={false}
-              setNumToMint={setNumToMint}
-              action={onPublicMint}
+            <Image
+              alt="Lil Bruvs NFT"
+              src="/promo.gif"
+              width={500}
+              height={500}
             />
+          </Grid>
+          <Grid item>
+            <Card sx={{ maxWidth: 560, boxShadow: 0 }}>
+              <CardContent>
+                <Typography sx={{ fontSize: "45px", fontFamily: "Chubby Choo", fontWeight: "bold", color: "text.primary", textTransform: 'capitalize' }} gutterBottom>
+                  Mint for Whitelist only
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: 'center', display: 'grid' }}>
+                <Stack direction="row" sx={{ border: '1px solid #737373', width: '270px', height: '51px', borderRadius: '10px', justifySelf: "center", justifyContent: "space-between", alignItems: 'center', px: '32px' }}>
+                  <ImageButton disabled={!minActive} onClick={() => setNumToMint(numToMint - 1)}>
+                    <Image src={`/patterns/minus${minActive ? "" : "-grey"}.svg`} layout="fill" alt="minus" />
+                  </ImageButton>
+                  <span style={{ marginTop: '-12px', fontFamily: "Chubby Choo", fontSize: '32px' }}>{numToMint}</span>
+                  <ImageButton disabled={!plusActive} onClick={() => setNumToMint(numToMint + 1)}>
+                    <Image src={`/patterns/plus${plusActive ? "" : "-grey"}.svg`} layout="fill" alt="plus" />
+                  </ImageButton>
+                </Stack>
+                <Tooltip
+                  TransitionComponent={Zoom}
+                  disabled={!(active & !isPaused)}
+                  title={
+                    active & !isPaused
+                      ? 'Minting is now available'
+                      : 'Minting is not currently available with due to some problems!'
+                  }
+                  arrow
+                >
+                  <span>
+                    <ImageButton
+                      disabled={!(active & !isPaused)}
+                      onClick={onPublicMint}
+                      variant="contained"
+                      sx={{ m: 1, width: "277px", height: "74px" }}
+                    >
+                      <Image src="/patterns/bg-mint.png" layout="fill" alt="mint" />
+                      <span style={{ zIndex: 10, marginTop: '-5px', fontSize: '24px' }}>Mint Free</span>
+                    </ImageButton>
+                  </span>
+                </Tooltip>
+                <span style={{ zIndex: 10, marginTop: '-5px', justifySelf: "center", fontSize: '24px' }}>{minted} Minted</span>
+              </CardActions>
+            </Card >
           </Grid>
         </Grid>
       </Stack>

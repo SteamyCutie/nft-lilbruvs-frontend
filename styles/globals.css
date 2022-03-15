@@ -11,8 +11,7 @@
   font-style: bold;
   font-weight: 400;
   src: local("Chubby Choo bold"), local("Chubby Choo-Bold"),
-    url("/fonts/fonts/Chubby Choo/font/ChubbyChoo-SemiBold.ttf")
-      format("truetype");
+    url("/fonts/Chubby Choo/font/ChubbyChoo-SemiBold.ttf") format("truetype");
 }
 
 html,
@@ -31,4 +30,8 @@ a {
 * {
   box-sizing: border-box;
   font-family: Chubby Choo;
+}
+
+#mint img {
+  border-radius: 34px;
 }

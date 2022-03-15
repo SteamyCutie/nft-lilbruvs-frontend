@@ -59,10 +59,13 @@ const Header = () => {
                 <ImageButton sx={{
                   backgroundColor: "#55ACEE",
                 }}>
-                  <Image src="/icons/twitter-icon.svg" width={"23px"} height={"19px"} /></ImageButton>
+                  <Image src="/icons/twitter-icon.svg" width={"23px"} height={"19px"} />
+                </ImageButton>
                 <ImageButton sx={{
                   backgroundColor: "#6F83CB",
-                }}><Image src="/icons/discord-icon.svg" width={"23px"} height={"20.7px"} sx={{ marginLeft: '10px' }} /></ImageButton>
+                }}>
+                  <Image src="/icons/discord-icon.svg" width={"23px"} height={"20.7px"} sx={{ marginLeft: '10px' }} />
+                </ImageButton>
               </Stack>
               <Connect />
             </Stack>
