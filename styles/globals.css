@@ -32,6 +32,10 @@ a {
   font-family: Chubby Choo;
 }
 
-#mint img {
+.promoGif {
   border-radius: 34px;
+}
+
+.teamPhoto {
+  border-radius: 999px;
 }

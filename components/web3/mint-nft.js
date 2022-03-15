@@ -79,6 +79,7 @@ const MintNFT = () => {
             <Image
               alt="Lil Bruvs NFT"
               src="/promo.gif"
+              className="promoGif"
               width={500}
               height={500}
             />

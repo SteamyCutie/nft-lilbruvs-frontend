@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Taylor",
+    "role": "Art & More",
+    "description": "Working in digital marketing and ecommerce by day. Pixel art and NFTs by night.",
+    "link": "https://twitter.com/"
+  },
+  {
+    "name": "Oded",
+    "role": "Marketing",
+    "description": "Working in digital marketing and ecommerce by day. Pixel art and NFTs by night.",
+    "link": "https://twitter.com/"
+  },
+  {
+    "name": "Abeer",
+    "role": "UI/UX Designer",
+    "description": "A design evangelist having expertise in building mobile Apps & websites.",
+    "link": "https://twitter.com/"
+  },
+  {
+    "name": "Jason",
+    "role": "Blockchain Developer",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Turpis faucibus euismod.",
+    "link": "https://twitter.com/"
+  }
+]
