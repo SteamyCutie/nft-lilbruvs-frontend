@@ -122,7 +122,7 @@ const MintNFT = () => {
                     </ImageButton>
                   </span>
                 </Tooltip>
-                <span style={{ zIndex: 10, marginTop: '-5px', justifySelf: "center", fontSize: '24px' }}>{minted} Minted</span>
+                <span style={{ zIndex: 10, marginTop: '-5px', justifySelf: "center", fontSize: '24px', textShadow: "0px 1px 1px #0000001F" }}>{minted} Minted</span>
               </CardActions>
             </Card >
           </Grid>
