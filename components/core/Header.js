@@ -6,7 +6,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp'
 import MuiNextLink from './MuiNextLink'
 import Image from 'next/image'
-import Navbar from './Navbar'
+import Navbar from '/Navbar'
 import SideDrawer from './SideDrawer'
 // import HideOnScroll from './HideOnScroll'
 import Fab from '@mui/material/Fab'
