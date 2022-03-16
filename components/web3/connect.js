@@ -146,7 +146,7 @@ export default function Connect() {
         handleLoginClick={handleLoginClick}
         handleClose={handleClose}
       />
-      {active && chainId !== 4 && <p>Please connect to Rinkeby for this demo. </p>}
+      {/* {active && chainId !== 4 && <p>Please connect to Rinkeby for this demo. </p>} */}
     </ Box>
   )
 }

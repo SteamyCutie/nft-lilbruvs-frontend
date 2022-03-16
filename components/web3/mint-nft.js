@@ -30,6 +30,21 @@ const MintNFT = () => {
   const [plusActive, setPlusActive] = useState(true);
 
   useEffect(() => {
+    async function getPublicMintId() {
+      lilBruvsNFT.methods
+      .publicMintId()
+      .call()
+      .then((result) => {
+        setMinted(result - 1)
+      })
+      .catch((err) => {
+        console.error('err', err)
+        setMinted(0)
+      })
+    }
+    getPublicMintId()
+  }, [])
+  useEffect(() => {
     if (!active || !account) {
       return
     }
@@ -73,8 +88,8 @@ const MintNFT = () => {
 
   return (
     <>
-      <Stack id="mint" sx={{ mt: 2 }}>
-        <Grid container spacing={5} justifyContent="center" alignItems="center" gridTemplateColumns='repeat(2, 1fr)'>
+      <Stack id="mint">
+        <Grid container sx={{ mt: 1 }} spacing={5} justifyContent="center" alignItems="center" gridTemplateColumns='repeat(2, 1fr)'>
           <Grid item>
             <Image
               alt="Lil Bruvs NFT"

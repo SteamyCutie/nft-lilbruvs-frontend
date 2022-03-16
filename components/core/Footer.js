@@ -28,7 +28,7 @@ const Footer = () => {
       >
         <MuiNextLink
           sx={{ textDecoration: "none", color: 'black' }}
-          href="https://twitter.com"
+          href="https://www.twitter.com/lilbruvs"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -38,7 +38,7 @@ const Footer = () => {
         </MuiNextLink>
         <MuiNextLink
           sx={{ textDecoration: "none", color: 'black' }}
-          href="https://discord.com"
+          href="https://discord.gg/xpG88auaUY"
           target="_blank"
           rel="noopener noreferrer"
         >

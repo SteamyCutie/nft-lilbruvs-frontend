@@ -12,7 +12,7 @@ const Divider = styled('div')(({ theme }) => ({
 
 const SectionFAQs = () => {
   return (
-    <Stack alignItems="center">
+    <Stack alignItems="center" id="faqs">
       <SectionTitle title="FAQs" />
       <Grid container spacing={2}>
         {

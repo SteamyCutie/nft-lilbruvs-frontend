@@ -10,6 +10,7 @@ import Navbar from './Navbar'
 import SideDrawer from './SideDrawer'
 // import HideOnScroll from './HideOnScroll'
 import Fab from '@mui/material/Fab'
+import { useState, useEffect } from 'react'
 import BackToTop from './BackToTop'
 import Connect from '../web3/connect'
 
@@ -23,12 +24,20 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
 }))
 
 export const navLinks = [
-  { title: 'Mint', path: '/' },
-  { title: 'FAQs', path: '/fqs' },
-  { title: 'Team', path: '/team' },
+  { title: 'Mint', path: 'mint' },
+  { title: 'Team', path: 'team' },
+  { title: 'FAQs', path: 'faqs' },
 ]
 
 const Header = () => {
+  const [isMinNav, setMinNav] = useState(false)
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setMinNav(window.pageYOffset > 20);
+    });
+  }, []);
+
+
   return (
     <>
       {/* <HideOnScroll> */}
@@ -36,6 +45,7 @@ const Header = () => {
         position="fixed"
         sx={{ backgroundColor: '#FFFFFF', boxShadow: 3 }}
         elevation={0}
+        id="header"
       >
         <Toolbar >
           <Container
@@ -44,7 +54,8 @@ const Header = () => {
               display: `flex`,
               justifyContent: `space-between`,
               alignItems: 'center',
-              height: '130px'
+              height: isMinNav ? '90px' : '130px',
+              transition: 'all ease-out 300ms'
             }}
           >
             <MuiNextLink activeClassName="active" href="/">
@@ -56,16 +67,30 @@ const Header = () => {
             </Stack>
             <Stack direction="row" alignItems="center" sx={{ display: 'flex', gap: '50px' }}>
               <Stack direction="row" alignItems="center" sx={{ display: 'flex', gap: '14px' }}>
-                <ImageButton sx={{
-                  backgroundColor: "#55ACEE",
-                }}>
-                  <Image src="/icons/twitter-icon.svg" width={"23px"} height={"19px"} />
-                </ImageButton>
-                <ImageButton sx={{
-                  backgroundColor: "#6F83CB",
-                }}>
-                  <Image src="/icons/discord-icon.svg" width={"23px"} height={"20.7px"} sx={{ marginLeft: '10px' }} />
-                </ImageButton>
+                <MuiNextLink
+                  sx={{ textDecoration: "none", color: 'black' }}
+                  href="https://www.twitter.com/lilbruvs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ImageButton sx={{
+                    backgroundColor: "#55ACEE",
+                  }}>
+                    <Image src="/icons/twitter-icon.svg" width={"23px"} height={"19px"} />
+                  </ImageButton>
+                </MuiNextLink>
+                <MuiNextLink
+                  sx={{ textDecoration: "none", color: 'black' }}
+                  href="https://discord.gg/xpG88auaUY"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ImageButton sx={{
+                    backgroundColor: "#6F83CB",
+                  }}>
+                    <Image src="/icons/discord-icon.svg" width={"23px"} height={"20.7px"} sx={{ marginLeft: '10px' }} />
+                  </ImageButton>
+                </MuiNextLink>
               </Stack>
               <Connect />
             </Stack>
