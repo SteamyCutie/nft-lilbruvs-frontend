@@ -5,6 +5,7 @@ import { Container, Stack, Button } from '@mui/material';
 import MintNFT from '../components/web3/mint-nft';
 import SectionReason from '../components/SectionReason';
 import SectionTeam from '../components/SectionTeam';
+import SectionFAQs from '../components/SectionFAQs';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
         <MintNFT />
         <SectionReason />
         <SectionTeam />
+        <SectionFAQs />
       </main>
     </Container>
   )
