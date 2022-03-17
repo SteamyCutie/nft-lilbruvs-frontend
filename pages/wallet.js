@@ -1,13 +1,12 @@
 import { Container, Stack } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { lilBruvsNFT } from './utils/_web3'
+import lilBruvsConfig from '../configs/LilBruvsConfig.json'
 import axios from 'axios'
 
 const Wallet = () => {
   const { active, account } = useWeb3React()
-  const contract_address = process.env.NEXT_PUBLIC_NFT_ADDRESS
   const [displayTokens, setDisplayTokens] = useState([])
   const [tokenBalance, setTokenBalance] = useState(0)
 
@@ -24,7 +23,6 @@ const Wallet = () => {
           setTokenBalance(resultFloat)
         })
         .catch((err) => {
-          console.error('err', err)
           setTokenBalance(0)
         })
     }
@@ -38,13 +36,12 @@ const Wallet = () => {
     async function getContractInfo() {
       const url =
         process.env.NEXT_PUBLIC_ENVIRONMENT === 'development'
-          ? `https://testnets-api.opensea.io/api/v1/assets?owner=${account}&asset_contract_address=${contract_address}`
-          : `https://api.opensea.io/api/v1/assets?owner=${account}&asset_contract_address=${contract_address}`
+          ? `https://testnets-api.opensea.io/api/v1/assets?owner=${account}&asset_contract_address=${lilBruvsConfig.lilBruvsAddr}`
+          : `https://api.opensea.io/api/v1/assets?owner=${account}&asset_contract_address=${lilBruvsConfig.lilBruvsAddr}`
 
       try {
         const response = await axios.get(url)
         setDisplayTokens(Array(response.data.assets))
-        console.log('result', Array(response.data.assets))
       } catch (err) {
         console.error(err)
       }

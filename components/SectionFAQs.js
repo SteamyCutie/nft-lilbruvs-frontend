@@ -2,7 +2,7 @@ import { Grid, Stack } from "@mui/material"
 import styled from "@emotion/styled"
 import FAQItem from "./core/FAQItem"
 import SectionTitle from "./core/SectionTitle"
-import faqData from "/data/LilBruvsFAQs.json"
+import faqData from "/configs/LilBruvsFAQs.json"
 
 const Divider = styled('div')(({ theme }) => ({
   width: '100%',

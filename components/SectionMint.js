@@ -1,10 +1,9 @@
-import { Button, ButtonBase, Card, CardActions, CardContent, Input, Grid, Stack, Tooltip, Typography, Zoom } from '@mui/material'
+import { ButtonBase, Card, CardActions, CardContent, Grid, Stack, Tooltip, Typography, Zoom } from '@mui/material'
 import { styled } from '@mui/system'
 import { useWeb3React } from '@web3-react/core'
 import { useEffect, useState } from 'react'
 import Notiflix from 'notiflix'
-import { Notify } from 'notiflix/build/notiflix-notify-aio'
-import { mintPublic, lilBruvsNFT } from '../../pages/utils/_web3'
+import { mintPublic, lilBruvsNFT } from '../pages/utils/_web3'
 import Image from 'next/image'
 import Web3 from 'web3'
 
@@ -15,12 +14,20 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
   borderRadius: '999px',
 }))
 
-const MintNFT = () => {
+const NOT_CLAIMABLE = 0;
+const ALREADY_CLAIMED = 1;
+const CLAIMABLE = 2;
+
+const SectionMint = () => {
   const web3 = new Web3(Web3.givenProvider)
 
   const fetcher = (url) => fetch(url).then((res) => res.json())
   const { active, account, chainId } = useWeb3React()
 
+  const [whitelistClaimable, setWhitelistClaimable] = useState(NOT_CLAIMABLE);
+  const [alreadyClaimed, setAlreadyClaimed] = useState(false);
+
+  const [whitelistMintStatus, setWhitelistMintStatus] = useState();
   const [publicMintStatus, setPublicMintStatus] = useState()
   const [isPaused, setIsPaused] = useState(false)
   const [minted, setMinted] = useState(0)
@@ -32,21 +39,33 @@ const MintNFT = () => {
   useEffect(() => {
     async function getPublicMintId() {
       lilBruvsNFT.methods
-      .publicMintId()
-      .call()
-      .then((result) => {
-        setMinted(result - 1)
-      })
-      .catch((err) => {
-        console.error('err', err)
-        setMinted(0)
-      })
+        .publicMintId()
+        .call()
+        .then((result) => {
+          setMinted(result - 1)
+        })
+        .catch((err) => {
+          console.error('err', err)
+          setMinted(0)
+        })
     }
     getPublicMintId()
   }, [])
+
   useEffect(() => {
     if (!active || !account) {
+      setAlreadyClaimed(false);
       return
+    }
+    async function checkIfClaimed() {
+      lilBruvsNFT.methods
+        .isClaimed(account)
+        .call({ from: account })
+        .then((result) => {
+          setAlreadyClaimed(result);
+        }).catch((err) => {
+          setAlreadyClaimed(false);
+        });
     }
     async function getMintPaused() {
       lilBruvsNFT.methods
@@ -60,13 +79,28 @@ const MintNFT = () => {
           setIsPaused(false)
         })
     }
+    checkIfClaimed()
     getMintPaused()
   }, [account])
+
+  const { MerkleTree } = require('merkletreejs');
+  const keccak256 = require('keccak256');
+  let whiteList = require('../configs/LilBruvsWhiteList.json');
+  const hashedAddresses = whiteList.map(addr => keccak256(addr));
+  const merkleTree = new MerkleTree(hashedAddresses, keccak256, { sortPairs: true });
+
+  const hashedAddress = keccak256(account);
+  const proof = merkleTree.getHexProof(hashedAddress);
+  const root = merkleTree.getHexRoot();
+
+  const valid = merkleTree.verify(proof, hashedAddress, root);
+  const whiteListProof = proof;
 
   useEffect(() => {
     setMinActive(numToMint > 1)
     setPlusActive(numToMint < 300)
   }, [numToMint]);
+
   const showNotify = (success, status) => {
     let param = {
       width: '500px',
@@ -79,6 +113,12 @@ const MintNFT = () => {
     if (success) Notiflix.Notify.success(status, param)
     else Notiflix.Notify.failure(status, param)
   }
+
+  const onMintWhitelist = async () => {
+    const { success, status } = await mintWhiteList(account, whiteListProof);
+    showNotify(success, status);
+    setWhitelistMintStatus(success);
+  };
 
   const onPublicMint = async () => {
     const { success, status } = await mintPublic(account, numToMint)
@@ -148,4 +188,4 @@ const MintNFT = () => {
   )
 }
 
-export default MintNFT
+export default SectionMint

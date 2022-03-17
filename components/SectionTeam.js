@@ -3,7 +3,7 @@ import { styled } from '@mui/system'
 import Image from 'next/image'
 import MuiNextLink from './core/MuiNextLink'
 import SectionTitle from './core/SectionTitle'
-import teamData from '/data/LilBruvsTeam.json'
+import teamData from '/configs/LilBruvsTeam.json'
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   positive: 'relative',
