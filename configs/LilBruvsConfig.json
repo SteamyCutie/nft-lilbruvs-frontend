@@ -4,6 +4,6 @@
     "whiteListMintPrice": 0.0
   },
   "lilBruvsEnv": "DEVELOPMENT",
-  "lilBruvsMode": "WL MODE",
+  "lilBruvsMode": "PRE MODE",
   "lilBruvsAddr": "0xDc1D7784EB39BF494c34026ba5175f2428358e0B"
 }

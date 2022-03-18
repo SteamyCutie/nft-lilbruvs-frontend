@@ -25,7 +25,7 @@ const SectionTeam = () => {
                 <div style={{ fontSize: "32px" }}>{i.name}</div>
                 <div style={{ fontSize: "24px", color: "#6D6D6D" }}>{i.role}</div>
                 <div style={{ fontSize: "18px", textAlign: "center", textTransform: "capitalize", maxWidth: "250px", margin: "0.5rem 0 1rem 0" }}>{i.description}</div>
-                <MuiNextLink activeClassName="active" href={i.link}>
+                <MuiNextLink activeClassName="active" href={i.link} target='_blank'>
                   <ImageButton>
                     <Image src="/icons/twitter.svg" layout="fill" alt={i.name} />
                   </ImageButton>
