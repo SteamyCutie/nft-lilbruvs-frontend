@@ -27,6 +27,7 @@ export default function MyApp(props) {
       <Head>
         <title>LilBruvs NFT</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="icon" href="/favicon.jpg" />
       </Head>
       <ThemeProvider theme={theme}>
         <Web3ReactProvider getLibrary={getLibrary}>
